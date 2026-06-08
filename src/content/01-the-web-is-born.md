@@ -40,3 +40,12 @@ btn.addEventListener('click', function() {
 看起来很简单对吧？但当页面变复杂，问题就来了...
 
 > 这就是为什么后来会出现 jQuery。
+
+## CodeBlock 测试
+
+<ClientOnly>
+<CodeBlock lang="javascript" title="example.js">
+const greeting = "Hello, World!";
+console.log(greeting);
+</CodeBlock>
+</ClientOnly>
