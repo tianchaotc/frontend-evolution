@@ -96,4 +96,16 @@ const currentSlug = computed(() => route.params.slug)
   font-weight: 600;
   min-width: 1.5em;
 }
+
+@media (max-width: 768px) {
+  .chapter-nav {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 300;
+  }
+
+  :global(.sidebar-open) .chapter-nav {
+    transform: translateX(0);
+  }
+}
 </style>

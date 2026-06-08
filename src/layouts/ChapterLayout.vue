@@ -1,10 +1,13 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { chapters } from '../data/chapters'
 import ChapterNav from '../components/ChapterNav.vue'
 
 const route = useRoute()
+const sidebarOpen = ref(false)
+
+watch(() => route.path, () => { sidebarOpen.value = false })
 
 const currentChapter = computed(() =>
   chapters.find((ch) => ch.slug === route.params.slug)
@@ -22,8 +25,17 @@ const nextChapter = computed(() => {
 </script>
 
 <template>
-  <div class="chapter-layout">
+  <div class="chapter-layout" :class="{ 'sidebar-open': sidebarOpen }">
+    <div class="mobile-header">
+      <button class="hamburger" @click="sidebarOpen = !sidebarOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <span class="mobile-title">Frontend Evolution</span>
+    </div>
     <ChapterNav />
+    <div class="sidebar-overlay" @click="sidebarOpen = false"></div>
     <main class="chapter-content">
       <article class="chapter-article">
         <slot />
@@ -53,6 +65,14 @@ const nextChapter = computed(() => {
 .chapter-layout {
   display: flex;
   min-height: 100vh;
+}
+
+.mobile-header {
+  display: none;
+}
+
+.sidebar-overlay {
+  display: none;
 }
 
 .chapter-content {
@@ -92,9 +112,65 @@ const nextChapter = computed(() => {
 }
 
 @media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0.75em 1em;
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25em;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--color-text);
+    transition: all 0.2s;
+  }
+
+  .mobile-title {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
   .chapter-content {
     margin-left: 0;
-    padding: 1.5em;
+    padding: 4em 1.5em 2em;
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 250;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .sidebar-open .sidebar-overlay {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 </style>
