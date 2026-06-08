@@ -49,3 +49,12 @@ const greeting = "Hello, World!";
 console.log(greeting);
 </CodeBlock>
 </ClientOnly>
+
+## CodeCompare 测试
+
+<ClientOnly>
+<CodeCompare :tabs="[
+  { label: 'jQuery', code: '$(\"#btn\").click(function() {\n  $(this).hide();\n});', lang: 'javascript' },
+  { label: 'Vue', code: '<button @click=\"visible = false\">\n  Click me\n</button>', lang: 'html' }
+]" />
+</ClientOnly>
