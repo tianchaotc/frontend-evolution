@@ -11,6 +11,7 @@ export default defineConfig(async () => {
   })
 
   return {
+    base: '/frontend-evolution/',
     plugins: [
       vue({
         include: [/\.vue$/, /\.md$/],
