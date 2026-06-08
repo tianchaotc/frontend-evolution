@@ -54,7 +54,7 @@ console.log(greeting);
 
 <ClientOnly>
 <CodeCompare :tabs="[
-  { label: 'jQuery', code: '$(\"#btn\").click(function() {\n  $(this).hide();\n});', lang: 'javascript' },
-  { label: 'Vue', code: '<button @click=\"visible = false\">\n  Click me\n</button>', lang: 'html' }
+  { label: 'jQuery', code: '$(&quot;#btn&quot;).click(function() {\n  $(this).hide();\n});', lang: 'javascript' },
+  { label: 'Vue', code: '&lt;button @click=&quot;visible = false&quot;&gt;\n  Click me\n&lt;/button&gt;', lang: 'html' }
 ]" />
 </ClientOnly>
